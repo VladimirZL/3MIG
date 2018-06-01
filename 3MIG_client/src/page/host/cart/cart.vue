@@ -1,11 +1,7 @@
 <template>
     <div id="cart">
     	<header>
-            <div class = 'empty-div'></div>
-            <div class = 'cart-tittle'>购物车</div>
-            <div class = 'cart-search'>
-                <img src="../../../assets/icon/search1.svg">
-            </div>
+            <Head title = '购物车' search = 'true'></Head>
         </header>
         <Loading :loading-show = 'isLoading'></Loading>
         <main>
@@ -40,6 +36,8 @@
 
 <script>
 import axios from 'axios'
+import Head from '../../../components/header/Head.vue'
+import changeRouter from '../../../router/changeRouter.js'
 import loading from '../../../components/common/loading.vue'
 
 export default {
@@ -54,6 +52,7 @@ export default {
   		}	
   	},
   	components: {
+        'Head': Head,
   		'Loading': loading
   	},
     methods: {
@@ -74,15 +73,7 @@ export default {
             });
         },
         routerPath (type, id) {
-            switch(type) {
-                case 'product': this.$router.push({ path: '../product', query: {productId: `${id}`}});
-                break;
-                case 'channel': this.$router.push({ path: '../channel', query: {channelId: `${id}`}});
-                break;
-                case 'url': window.location.href = id;
-                break;
-                default: break;
-            }
+            changeRouter(this, type, id);
         }
         // getCartShoppingData () {
         //     this.isLoading = true;
@@ -107,34 +98,18 @@ export default {
 
 <style lang="scss" scoped>
 	#cart {
+        padding-bottom: 1.11rem;
 		header {
-            display: flex;
+            top: 0;
+            left: 0;
+            right: 0;
             width: 100%;
+            z-index: 9999;
             height: 0.9rem;
             position: fixed;
-            font-size: 0.3rem;
-            align-items: center;
-            background-color: #f2f2f2;
-            .empty-div {
-                flex-grow: 2;
-            }
-            .cart-tittle {
-                flex-grow: 7;
-                text-align: center;
-            }
-            .cart-search {
-                flex-grow: 1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                img {
-                    width: 0.5rem;
-                }
-            }
         }
         main {
             padding-top: 0.9rem;
-            padding-bottom: 1.11rem;
             .no-login {
                 width: 100%;
                 height: 1.04rem;

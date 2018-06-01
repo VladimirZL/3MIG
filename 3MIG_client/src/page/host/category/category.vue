@@ -1,11 +1,7 @@
 <template>
     <div id="category">
         <header>
-            <div class="empty-div"></div>
-            <div class="category-tittle">分类</div>
-            <div class="category-search">
-                <img src="../../../assets/icon/search1.svg">
-            </div>
+            <Head title = '分类' search = 'true'></Head>
         </header>
         <!-- 懒加载动画 -->
         <Loading :loading-show = 'isLoading'></Loading>
@@ -26,7 +22,6 @@
                         </div>
                         <div v-else-if = "data.view_type === 'category_group'" :class = 'data.view_type'>
                             <div class="category-product" v-for = '(item, itemIndex) in  data.body.items'>
-                                <!-- <router-link :to = "`../${item.action.type}/${item.action.path}`"> -->
                                 <a @click = 'routerPath(item.action.type, item.action.path)'>
                                     <div class="category-product-img">
                                         <img :src = 'item.img_url'>
@@ -46,8 +41,12 @@
 
 <script>
 import axios from 'axios'
+import Head from '../../../components/header/Head.vue'
+import changeRouter from '../../../router/changeRouter.js'
 import loading from '../../../components/common/loading.vue'
 import cellsAutoFill from '../../../components/common/type/cellsAutoFill.vue'
+
+
 
 export default {
   	name: 'category',
@@ -61,12 +60,14 @@ export default {
   		}   
   	},
     components: {
+        'Head': Head,
         'Loading': loading,
-        'CellsAutoFill': cellsAutoFill
+        'CellsAutoFill': cellsAutoFill,
     },
     methods: {
         toThis (index) {
             this.categoryMenuFlag = index;
+            // console.log(this.categoryMenuFlag);
             this.$refs.rightSide.scrollTop = this.$refs.dataDom[index].offsetTop - this.$refs.dataDom[0].offsetTop;
         },
         //获取后台数据
@@ -105,15 +106,7 @@ export default {
         },
         //router位置
         routerPath (type, id) {
-            switch(type) {
-                case 'product': this.$router.push({ path: '../product', query: {productId: `${id}`}});
-                break;
-                case 'channel': this.$router.push({ path: '../channel', query: {channelId: `${id}`}});
-                break;
-                case 'url': window.location.href = id;
-                break;
-                default: break;
-            }
+            changeRouter(this, type, id);
         }
     },
     created () {
@@ -125,36 +118,19 @@ export default {
 
 <style lang="scss" scoped>
     #category {
-        width: 100%;
+        padding-bottom: 1.11rem;
         header {
-            display: flex;
+            top: 0;
+            left: 0;
+            right: 0;
             width: 100%;
+            z-index: 9999;
             height: 0.9rem;
             position: fixed;
-            font-size: 0.3rem;
-            align-items: center;
-            background-color: #f2f2f2;
-            .empty-div {
-                flex-grow: 2;
-            }
-            .category-tittle {
-                flex-grow: 7;
-                text-align: center;
-            }
-            .category-search {
-                flex-grow: 1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                img {
-                    width: 0.5rem;
-                }
-            }
         }
         main {
             display: flex;
             padding-top: 0.9rem;
-            padding-bottom: 1.11rem;
             position: relative;
             .side {
                 height: 100%;

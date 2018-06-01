@@ -16,12 +16,15 @@ const getCategorypageData = require('./modules/host/category/categoryPageData.js
 //cart页面数据值
 const getCartpageData = require('./modules/host/cart/cartPageData.js');
 const getCartshoppiongData = require('./modules/host/cart/cartShoppingData.js');
-
+//search页面数据值
+const getSearchpageData = require('./modules/host/search/searchPageData.js');
+const getSearchlistData = require('./modules/host/search/searchListData.js');
+const getSearchkeyData = require('./modules/host/search/searchKeyData.js');
 
 /***  product页面  ***/
 
 const getProductData = require('./modules/product/product.js');
-
+const getProductRecommData = require('./modules/product/productRecomm.js');
 
 
 
@@ -66,13 +69,33 @@ host
 	.get('/cartPage/shopping',  async (ctx) => {
 		let result = await getCartshoppiongData();
 		back(ctx, result);
-	});
+	})
+	.get('/searchPage/data',  async (ctx) => {
+		let result = await getSearchpageData();
+		back(ctx, result);
+	})
+	.get('/searchPage/list',  async (ctx) => {
+		let list_name = ctx.query.listName;
+		let result = await getSearchlistData(list_name);
+		back(ctx, result);
+	})
+	.get('/searchPage/key', async (ctx) => {
+		let input_key = ctx.query.key;
+		let result = await getSearchkeyData(input_key);
+		back(ctx, result);
+	})
+
 
 let product = new Router();
 product
 	.get('/data', async (ctx) => {
 		let _productId = ctx.query.productId;
 		let result = await getProductData(_productId);
+		back(ctx, result);
+	})
+	.get('/recommend', async (ctx) => {
+		let _productId = ctx.query.productId;
+		let result = await getProductRecommData(_productId);
 		back(ctx, result);
 	})
 

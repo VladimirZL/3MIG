@@ -11,6 +11,7 @@
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import changeRouter from '../../../router/changeRouter.js'
 
 export default {
   	name: 'galleryCustom',
@@ -30,15 +31,7 @@ export default {
     props: ['typeBody'],
     methods: {
         routerPath (type, id) {
-            switch(type) {
-                case 'product': this.$router.push({ path: '../product', query: {productId: `${id}`}});
-                break;
-                case 'channel': this.$router.push({ path: '../channel', query: {channelId: `${id}`}});
-                break;
-                case 'url': window.location.href = id;
-                break;
-                default: break;
-            }
+            changeRouter(this, type, id);
         }
     }
 }

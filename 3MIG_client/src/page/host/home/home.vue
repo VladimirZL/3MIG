@@ -27,9 +27,6 @@
     		<HomeContent :home-content-pages = 'homeMenuOptions' :home-content-data = 'homeDataArray' :home-menu-index = "homeMenuFlag"></HomeContent>
     	</main>
     </div>
-    <!-- 还存在问题：
-    	1.切换路由不能记住状态
-    	2.轮播图分页器 -->
 </template>
 
 <script>
@@ -105,82 +102,88 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	header {
-		top: 0;
-		width: 100%;
-		z-index: 99;
-		height: 1.5rem;
-		position: fixed;
-		background-color: #F2F2F2;
-		box-shadow: 0 -2px 20px #888888;
-		.first-row {
-			text-align: center;
-			display: flex;
-			align-items: center;
-			width: 100%;
-			height: 0.94rem;
-			.first-item {
-				display: inline-flex;
-				flex-grow: 0.2;
-				img {
-					height: 0.95rem;
-				}
-			}
-			.second-item {
-				height: 0.56rem;
-				display: flex;
-				flex-grow: 8.8;
-				background-color: white;
-				border: 1px solid #E5E5E5;
-				align-items: center;
-				justify-content: space-start;
-				img {
-					height: 0.39rem;
-					margin: 0 0.06rem 0 0.06rem;
-				}	
-				span {
-					font-size: 0.28rem;
-					color: #D4D4D4;
-				}
-			}
-			.third-item {
-				display: inline-flex;
-				flex-direction: column;
-				align-items: center;
-				flex-grow: 1;
-				img {
-					height: 0.45rem;
-				}
-			}
-		}
-		.second-row-out {
-			height: 0.56rem;
-			overflow: scroll;
-			.second-row-in {
-				height: 0.56rem;
-				display: flex;
-				align-items: center;
-				span {
-					font-size: 0.26rem;
-					height: 0.56rem;
-					color: #747474;
-					display: flex;
-					white-space: nowrap;
-					align-items: center;
-					padding: 0 0.22rem;
-					box-sizing: border-box;
-					transition: all 0.5s;
-					border-bottom: 2px solid #F2F2F2;
-				}
-				.homeMenu-onthis {
-					color: #059B5A;
-					border-color: #059B5A;
-				}
-			}
-		}
-	}
-	main {
-		padding-top: 1.5rem;
+	#home {
 		padding-bottom: 1.11rem;
+		header {
+			top: 0;
+			left: 0;
+			right: 0;
+			width: 100%;
+			z-index: 9999;
+			height: 1.5rem;
+			position: fixed;
+			background-color: #F2F2F2;
+			box-shadow: 0 -2px 20px #888888;
+			.first-row {
+				text-align: center;
+				display: flex;
+				align-items: center;
+				width: 100%;
+				height: 0.94rem;
+				.first-item {
+					display: inline-flex;
+					flex-grow: 0.2;
+					img {
+						height: 0.95rem;
+					}
+				}
+				.second-item {
+					height: 0.56rem;
+					display: flex;
+					flex-grow: 8.8;
+					background-color: white;
+					border: 1px solid #E5E5E5;
+					align-items: center;
+					justify-content: space-start;
+					img {
+						height: 0.39rem;
+						margin: 0 0.06rem 0 0.06rem;
+					}	
+					span {
+						font-size: 0.28rem;
+						color: #D4D4D4;
+					}
+				}
+				.third-item {
+					display: inline-flex;
+					flex-direction: column;
+					align-items: center;
+					flex-grow: 1;
+					img {
+						height: 0.45rem;
+					}
+				}
+			}
+			.second-row-out {
+				height: 0.56rem;
+				overflow: scroll;
+				.second-row-in {
+					height: 0.56rem;
+					display: flex;
+					align-items: center;
+					span {
+						font-size: 0.26rem;
+						height: 0.56rem;
+						color: #747474;
+						display: flex;
+						white-space: nowrap;
+						align-items: center;
+						padding: 0 0.22rem;
+						box-sizing: border-box;
+						transition: all 0.5s;
+						border-bottom: 2px solid #F2F2F2;
+					}
+					.homeMenu-onthis {
+						color: #059B5A;
+						border-color: #059B5A;
+					}
+				}
+			}
+		}
+		main {
+			padding-top: 1.5rem;
+			// padding-bottom: 1.11rem;
+		}
 	}
+
 </style>

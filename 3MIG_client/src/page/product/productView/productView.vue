@@ -1,12 +1,12 @@
 <template>
-    <div id="product" ref = 'product'>
+    <div id="product-view" ref = 'product'>
         <div :class = "['product-box', {'product-box-show': productOpFlag === true}]">
             <!-- 遮罩 -->
             <div v-show = 'productOpFlag' class = 'product-mask'></div>
             <!-- 弹出信息 -->
             <div :class = "['product-info-box', {'product-info-box-show': productOpAnimaFlag === true}]">
                 <div class = 'close-box' @click = 'closeProductOp'>
-                    <img src = '../../assets/icon/close.svg'>
+                    <img src = '../../../assets/icon/close.svg'>
                 </div>
                 <div v-if = "productShowType === 'user_choice'" class = 'product-user_choice'>
                     <div class = 'user-choice-result'>
@@ -145,6 +145,26 @@
                     </transition>
                 </div>
             </div>
+            <div class = 'recommend-view'>
+                <div class = 'recommend-title'>
+                    {{ recommendContent.title }}
+                </div>
+                <div class = 'recommend-content'>
+                    <div v-for = '(item, index) in recommendContent.list' class = 'recommend-goods'>
+                        <transition name = 'desc_animate' mode = 'out-in'>
+                            <a @click = 'routerPath(item.action.type, item.action.path)'>
+                                <div class = 'goods-img-box'>
+                                    <img :src = 'item.image_url'>
+                                </div>
+                                <div class = 'goods-info'>
+                                    <div class="goods-name"> {{ item.name }} </div>
+                                    <div class="goods-price"> {{ item.price }} </div> 
+                                </div>
+                            </a>
+                        </transition>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer></footer>
     </div>
@@ -153,9 +173,10 @@
 <script>
 import axios from 'axios'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import changeRouter from '../../../router/changeRouter.js'
 
 export default {
-  	name: 'user',
+  	name: 'productView',
     data () {
         return {
             state: {
@@ -195,6 +216,11 @@ export default {
             },
             //购买选项
             buyOption: [],
+            //推荐内容
+            recommendContent: {
+                list: [],
+                title: ''
+            }
         }
     },
     components: {
@@ -203,11 +229,12 @@ export default {
     },
     methods: {
         getProductData () {
+            let _that = this;
             axios({
                 method: 'get',
                 url: 'http://localhost:3000/product/data',
                 params: {
-                    productId: window.location.href.split('=')[1]
+                    productId: _that.$route.params.id
                 }
             })
             .then((res) => {
@@ -224,10 +251,38 @@ export default {
                 console.log(err);
             });
         },
+        getProductRecomData () {
+            let _that = this;
+            axios({
+                method: 'get',
+                url: 'http://localhost:3000/product/recommend',
+                params: {
+                    productId: _that.$route.params.id
+                }
+            })
+            .then((res) => {
+                console.log(res.data.data.data);
+                let _data = res.data.data.data;
+                this.$set(this.recommendContent, 'title', _data.title);
+                this.$set(this.recommendContent, 'list', _data.recommend_list);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        },
+        //变换细节内容
         changeDescTabs (_index) {
             this.$set(this.state, 'descFlag', _index);
         },
-
+        //变换路由
+        routerPath (type, id) {
+            changeRouter(this, type, id);
+        },
+        //更新路由
+        updatePath () {
+            this.getProductData();
+            this.getProductRecomData();
+        },
         /***  做完换  ***/
         openProductOp (_type) {
             this.productShowType = _type;
@@ -247,8 +302,12 @@ export default {
             event.preventDefault();
         },
     },
+    watch: {
+        '$route': 'updatePath'
+    },
     created () {
         this.getProductData();
+        this.getProductRecomData();
     }
 
 }
@@ -266,7 +325,7 @@ export default {
         border-top: 1px solid #575757;
         transform: translate3d(0, -50%, 0) rotate(135deg);
     }
-    #product {
+    #product-view {
         .product-box {
             width: 100%;
             height: 100%;
@@ -412,7 +471,7 @@ export default {
                     background-size: 0.4rem;
                     background-position: left;
                     background-repeat: no-repeat;
-                    background-image: url('../../assets/icon/rmb1.svg');
+                    background-image: url('../../../assets/icon/rmb1.svg');
                 }
             }
             .buy-info {
@@ -499,7 +558,7 @@ export default {
                             padding-left: 0.5rem;
                             line-height: 0.36rem;
                             box-sizing: border-box;
-                            background: url('../../assets/icon/good.svg');
+                            background: url('../../../assets/icon/good.svg');
                             background-repeat: no-repeat;
                             background-size: 0.4rem 0.4rem;
                         }
@@ -578,7 +637,6 @@ export default {
                     }
                 }
                 .descTabs-view-content {
-                    // position: relative;
                     .desc_animate-enter {
                         opacity: 0;
                     }
@@ -586,7 +644,6 @@ export default {
                         opacity: 1;
                     }
                     .desc_animate-enter-active {
-                        // opacity: 1;
                         transition: opacity 0.2s;
                     }
                     .desc_animate-leave-active {
@@ -597,9 +654,52 @@ export default {
                         width: 100%;
                         line-height: 0;
                         .content-box-img {
-                            // width: 100%;
                             img {
                                 width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+            .recommend-view {
+                width: 100%;
+                margin-top: 0.16rem;
+                background-color: white;
+                .recommend-title {
+                    font-size: 0.3rem;
+                    padding: 0 0.32rem;
+                    line-height: 0.8rem;
+                }
+                .recommend-content {
+                    .recommend-goods {
+                        width: 3.6rem;
+                        // float: left;
+                        display: inline-block;
+                        .goods-img-box {
+                            width: 3.6rem;
+                            img {
+                                width: 100%;
+                            }
+                        }
+                        .goods-info {
+                            padding: 0.18rem 0.26rem;
+                            white-space: nowrap;
+                            .goods-name {
+                                color: black;
+                                font-size: 0.28rem;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                            .goods-price {
+                                margin-top: 0.1rem;
+                                line-height: 0.44rem;
+                                color: #ff6700;
+                                padding-left: 0.2rem;
+                                font-size: 0.3rem;
+                                background-size: 0.2rem;
+                                background-position: left;
+                                background-repeat: no-repeat;
+                                background-image: url('../../../assets/icon/RMB.svg');
                             }
                         }
                     }

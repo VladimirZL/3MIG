@@ -20,7 +20,9 @@
 </template>
 
 <script>
+import changeRouter from '../../../router/changeRouter.js'
 import productButton from '../../../components/common/productButton.vue'
+
 
 export default {
   	name: 'productInfo',
@@ -34,15 +36,7 @@ export default {
     props: ['productData'],
     methods: {
         routerPath (type, id) {
-            switch(type) {
-                case 'product': this.$router.push({ path: '../product', query: {productId: `${id}`}});
-                break;
-                case 'channel': this.$router.push({ path: '../channel', query: {channelId: `${id}`}});
-                break;
-                case 'url': window.location.href = id;
-                break;
-                default: break;
-            }
+            changeRouter(this, type, id);
         }
     }
   	

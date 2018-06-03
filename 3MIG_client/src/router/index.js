@@ -15,10 +15,20 @@ import searchShow from '@/page/host/search/searchShow.vue'
 import searchList from '@/page/host/search/searchList.vue'
 //会员中心页面
 import Vip from '@/page/host/vip/Vip.vue'
+//服务中心页面
+import Service from '@/page/host/service/Service.vue'
+//小米之家页面
+import Mihome from '@/page/host/mihome/Mihome.vue'
 
 //product页面
 import productView from '@/page/product/productView/productView.vue'
 import productList from '@/page/product/productList/productList.vue'
+
+
+/***  login  ***/
+import Login from '@/page/login/Login.vue'
+
+
 
 Vue.use(Router)
 
@@ -99,11 +109,13 @@ const router = new Router({
                 },
                 {
                     path: '/host/services',
-                    name: 'host-services'
+                    name: 'host-services',
+                    component: Service
                 },
                 {
                     path: '/host/mihome',
-                    name: 'host-mihome'
+                    name: 'host-mihome',
+                    component: Mihome
                 },
                 {
                     path: '/host/fcode',
@@ -126,6 +138,11 @@ const router = new Router({
                     component: productList
                 }
             ]
+        },
+        {
+            name: 'login',
+            path: '/login',
+            component: Login,
         }
     ]
 })

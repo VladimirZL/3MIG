@@ -69,3 +69,7 @@ hr {
 ::-webkit-scrollbar {
   display: none;
 }
+
+html {
+  user-select: none;
+}

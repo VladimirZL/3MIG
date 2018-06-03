@@ -1,34 +1,30 @@
-
 const request = require('request');
 
-async function getMail () {
+async function doLogin () {
 
 	return new Promise((resolve, reject) => {
 		let options = {
-			url: 'https://account.xiaomi.com/pass/sendServiceLoginTicket?_dc=1526804827764',
+			url: 'https://account.xiaomi.com/pass/phoneInfo?_dc=1528014822907',
 			method: 'POST',
 			encoding: null,
 			headers: {
-				'Cookie': 'dc=sd; pass_ua=web; deviceId=wb_c5a8919b-1f96-424b-b610-01516a012179; uLocale=zh_CN; JSESSIONID=aaav0FTHlUmxA9GVxgJnw; pass_trace=tSIC6sdabOpSAU5ym+daYMhePgOMopO/z+79wr2eFdUQ3zCCG63khQOiazN0V1eH1AjMSxBkiiE8q7hTzsL/qpsg9ZqPMQCZk60hQUJmnNvSVrBg233EWyGPivzMPoyP',
 				'Referer': 'https://account.xiaomi.com/pass/serviceLogin?callback=https%3A%2F%2Fm.mi.com%2Fv1%2Fauthorize%2Fsso_callback%3Ffollowup%3Dhttps%253A%252F%252Fm.mi.com%252Fuser%26sign%3DZWJiMDc5YWVjOTNkNGE5YzM4Mjc2Y2I1MGYxMmE0YmY4MmRkMDY1Ng%2C%2C&sid=mi_eshopm_go&_bal=true&_loginSign=ticket&_loginType=ticket',
 			},
 			form: {
-				// 'contentType': '160033',
-				// 'userId': '-1',
-				// 'address': '18392192893',
-				'sid': 'passport',
-				'user': '15529342886',
-				// 'captCode': 'QHX8D'
+				'user': '18392192892',
+				'ticket': '2168'
 			}
 		};
 		request(options, (err, res, body) => {
-			console.log(body.toString());
+			console.log(res.headers);
 			if(!err) {
-				resolve({
-					success: true,
-					data: body.toString()
-				});
+				console.log(body.toString());
+				// resolve({
+				// 	success: true,
+				// 	data: body
+				// });
 			} else {
+				console.log(err);
 				reject({
 					success: false,
 					err: err
@@ -38,7 +34,7 @@ async function getMail () {
 	});
 
 }
+doLogin();
+// getVerCode();
 
-getMail();
-
-module.exports = getMail;
+module.exports = doLogin;

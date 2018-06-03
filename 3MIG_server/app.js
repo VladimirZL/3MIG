@@ -21,11 +21,16 @@ const getSearchpageData = require('./modules/host/search/searchPageData.js');
 const getSearchlistData = require('./modules/host/search/searchListData.js');
 const getSearchkeyData = require('./modules/host/search/searchKeyData.js');
 
-/***  product页面  ***/
 
+/***  product页面  ***/
 const getProductData = require('./modules/product/product.js');
 const getProductRecommData = require('./modules/product/productRecomm.js');
 
+
+/***  Login页面  ***/ 
+
+//获取手机验证码 
+const getPhoneVcode = require('./modules/login/phoneVcode.js');
 
 
 //返回值
@@ -100,8 +105,20 @@ product
 	})
 
 
+let login = new Router();
+login
+	.get('/phonevcode', async (ctx) => {
+		let _user = ctx.query.user;
+		let _vcode = ctx.query.vercode;
+		let result = await getPhoneVcode(_user, _vcode);
+		back(ctx, result);
+	})
+
+
+
 router.use('/host', host.routes(), host.allowedMethods());
 router.use('/product', product.routes(), product.allowedMethods());
+router.use('/login', login.routes(), login.allowedMethods());
 
 	
 app.use(router.routes());

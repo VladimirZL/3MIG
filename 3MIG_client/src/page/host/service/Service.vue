@@ -100,7 +100,10 @@ export default {
 	},
 	components: {
 		'Head': Head
-	}
+	},
+	activated () {
+        this.$store.commit('SHOW_FOOTMENU');
+    }
 }
 </script>
 

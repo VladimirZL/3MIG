@@ -7,7 +7,7 @@ import getters from './getters'
 Vue.use(Vuex)
 
 const state = {
-	footMenu: 0, //底部菜单
+	showFootMenu: true, //底部菜单是否出现
 }
 
 export default new Vuex.Store({

@@ -1,5 +1,5 @@
 <template>
-    <div id="host">
+    <div id = 'host'>
     	<div class = 'main'>
 		    <transition name = 'host-animate'> 
 		    	<keep-alive>
@@ -24,26 +24,20 @@ export default {
   	name: 'host',
   	data () {
   		return {
-  			footerShow: true
+  			footerShow: this.$store.state.showFootMenu
   		}
   	},
   	components: {
   		'Foot': Foot
   	},
   	methods: {
-  		hiddenFoot () {
-  			if(this.$route.name === 'host-search-show') {
- 				this.footerShow = false;
-  			}
-  			else {
-  				this.footerShow = true;
-  			}
-  			// this.footerShow = false
+  		changeFooterShow () {
+  			this.footerShow = this.$store.state.showFootMenu;
   		}
   	},
   	watch: {
-  		'$route': 'hiddenFoot'
-  	},
+  		'$store.state.showFootMenu': 'changeFooterShow'
+  	}
 }
 </script>
 

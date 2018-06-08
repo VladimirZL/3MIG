@@ -6,6 +6,3 @@ function computeREM () {
 }
 computeREM();
 window.addEventListener('resize', computeREM, false);
-// window.onresize = () => {
-// 	computeREM();
-// };

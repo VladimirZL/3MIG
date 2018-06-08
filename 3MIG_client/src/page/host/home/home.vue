@@ -1,5 +1,7 @@
+<!-- 首页页面 -->
+
 <template>
-    <div id="home">
+    <div id = 'home'>
     	<header>
     		<div class="first-row">
     			<div class="first-item">
@@ -21,18 +23,21 @@
 	    		</div>
 	    	</div>
     	</header>
-    	<!-- 懒加载动画 -->
     	<Loading :loading-show = 'isLoading'></Loading>
     	<main>
-    		<HomeContent :home-content-pages = 'homeMenuOptions' :home-content-data = 'homeDataArray' :home-menu-index = "homeMenuFlag"></HomeContent>
+    		<div class = 'home-content'>
+    			<div v-for = '(content, contentIndex) in homeMenuOptions' v-show = 'contentIndex === homeMenuFlag'>
+    				<ContentList :content-list = 'homeDataArray[contentIndex]'></ContentList>
+    			</div>
+    		</div>
     	</main>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-import homeContent from './homeContent.vue'
 import loading from '../../../components/common/loading.vue'
+import ContentList from '../../../components/common/ContentList.vue'
 
 export default {
   	name: 'home',
@@ -45,8 +50,8 @@ export default {
  		} 		
   	},
   	components: {
-  		'HomeContent': homeContent,
-  		'Loading': loading
+  		'Loading': loading,
+  		'ContentList': ContentList
   	},
   	methods: {
   		toThis (index) {
@@ -96,8 +101,11 @@ export default {
   		}
   	},
   	created () {
-  		this.getMenuContent();		
+  		this.getMenuContent();	
   	},
+  	activated () {
+        this.$store.commit('SHOW_FOOTMENU');
+    }
 }
 </script>
 
@@ -181,8 +189,11 @@ export default {
 			}
 		}
 		main {
+			width: 100%;
 			padding-top: 1.5rem;
-			// padding-bottom: 1.11rem;
+			.home-content {
+				width: 100%;
+			}
 		}
 	}
 

@@ -20,6 +20,8 @@ const getCartshoppiongData = require('./modules/host/cart/cartShoppingData.js');
 const getSearchpageData = require('./modules/host/search/searchPageData.js');
 const getSearchlistData = require('./modules/host/search/searchListData.js');
 const getSearchkeyData = require('./modules/host/search/searchKeyData.js');
+//channel页面数据
+const getChannelpageData = require('./modules/host/channel/channelPageData.js');
 
 
 /***  product页面  ***/
@@ -31,6 +33,8 @@ const getProductRecommData = require('./modules/product/productRecomm.js');
 
 //获取手机验证码 
 const getPhoneVcode = require('./modules/login/phoneVcode.js');
+//执行登陆
+const doLogin = require('./modules/login/login.js');
 
 
 //返回值
@@ -89,6 +93,11 @@ host
 		let result = await getSearchkeyData(input_key);
 		back(ctx, result);
 	})
+	.get('/channelPage/data', async (ctx) => {
+		let _productId = ctx.query.productId;
+		let result = await getChannelpageData(_productId);
+		back(ctx, result);
+	})
 
 
 let product = new Router();
@@ -111,6 +120,12 @@ login
 		let _user = ctx.query.user;
 		let _vcode = ctx.query.vercode;
 		let result = await getPhoneVcode(_user, _vcode);
+		back(ctx, result);
+	})
+	.get('/doLogin', async (ctx) => {
+		let _user = ctx.query.user;
+		let _phoneVcode = ctx.query.phoneVcode;
+		let result = await doLogin(_user, _phoneVcode);
 		back(ctx, result);
 	})
 

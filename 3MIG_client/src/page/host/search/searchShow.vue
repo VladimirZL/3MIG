@@ -1,5 +1,5 @@
 <template>
-    <div id="search-show">
+    <div id = 'search-show'>
     	<header>
     		<div class = 'search-header'>
     			<div class = 'search-back' @click = 'back'>
@@ -47,7 +47,7 @@ import loading from '../../../components/common/loading.vue'
 import cellsAutoFill from '../../../components/common/type/cellsAutoFill.vue'
 
 export default {
-  	name: 'search-show',
+  	name: 'searchShow',
   	data () {
   		return {
   			isLoading: false,

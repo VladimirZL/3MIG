@@ -1,7 +1,7 @@
 <template>
-    <div id = 'search'>
-		<transition name = 'search-animate' >
-			<router-view class = 'search-router'></router-view>
+    <div id="product">
+		<transition name = 'product-animate' >
+			<router-view class = 'product-router'></router-view>
 		</transition>
     </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 
 export default {
-  	name: 'search',
+  	name: 'product',
   	activated () {
         this.$store.commit('HIDDEN_FOOTMENU');
     }
@@ -17,17 +17,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	#search {
-		width: 100%;
-		position: relative;
-  		.search-router {
+	#product {
+  		.product-router {
 		     transition: all 0.4s;
 		     position: absolute;
 		}
-		.search-animate-leave-active {
+		.product-animate-leave-active {
 		    transform: translate(100%, 0);
 		}
-		.search-animate-enter {
+		.product-animate-enter {
 		    transform: translate(-100%, 0);
 		}
 	}

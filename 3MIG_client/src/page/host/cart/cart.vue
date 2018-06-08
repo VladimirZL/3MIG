@@ -1,5 +1,7 @@
+<!-- 购物车页面 -->
+
 <template>
-    <div id="cart">
+    <div id = 'cart'>
     	<header>
             <Head title = '购物车' search = 'true'></Head>
         </header>
@@ -93,6 +95,9 @@ export default {
     created () {
         this.getCartPageData();
     },
+    activated () {
+        this.$store.commit('SHOW_FOOTMENU');
+    }
 }
 </script>
 

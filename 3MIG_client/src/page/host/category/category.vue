@@ -1,9 +1,11 @@
+<!-- 分类页面 -->
+
 <template>
-    <div id="category">
+    <div id = 'category'>
         <header>
             <Head title = '分类' search = 'true'></Head>
         </header>
-        <!-- 懒加载动画 -->
+        <!-- 加载动画 -->
         <Loading :loading-show = 'isLoading'></Loading>
         <main :style = "{height: `${watchHeight}rem`}">
             <div class="side left" ref = 'leftSide'>
@@ -113,6 +115,9 @@ export default {
         this.getCategoryData();
         window.addEventListener('resize', this.getSize, false);
     },
+    activated () {
+        this.$store.commit('SHOW_FOOTMENU');
+    }
 }
 </script>
 

@@ -1,7 +1,13 @@
 import {
-	CHANGE_FOOTMENU
+	SHOW_FOOTMENU,
+	HIDDEN_FOOTMENU
 } from './mutation-types.js'
 
 export default {
-	// [CHANGE_FOOTMENU](state, ())
+	[SHOW_FOOTMENU] (state) {
+		state.showFootMenu = true;
+	},
+	[HIDDEN_FOOTMENU] (state) {
+		state.showFootMenu = false;
+	},
 }

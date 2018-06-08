@@ -19,7 +19,7 @@
 	    			<div class = 'input-all input-phoneVcode'>
 	    				<input type = 'text' placeholder = '短信验证码' v-model = 'phoneVcode' @input = 'hiddenPromit'>
 	    				<div class = 'get-phoneVcode'>
-	    					<span @click = 'getPhoneVcode'>获取验证码</span>
+	    					<span @click = 'checkGetPhoneVcode'>获取验证码</span>
 	    					<!-- <span></span> -->
 	    				</div>
 	    			</div>
@@ -28,7 +28,7 @@
 	    			<span>{{ promit }}</span>
 	    		</div>
 	    		<div class = 'login-btn'>
-	    			<input type = 'button' value = '立即登陆' @click = 'doLogin'>
+	    			<input type = 'button' value = '立即登陆' @click = 'checkDoLogin'>
 	    		</div>
 	    	</div>
     	</div>
@@ -37,6 +37,7 @@
 
 <script>
 import axios from 'axios'
+import { setCookie, getCookie } from '../../config/cookie.js'
 
 export default {
   	name: 'login',
@@ -52,14 +53,14 @@ export default {
   			//手机号正则信息
   			phoneReg: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
   			//是否需要验证码
-  			isNeedVercode: true
+  			isNeedVercode: false
   		}
 	},
 	methods: {
 		hiddenPromit () {
 			this.promit = '';
 		},
-		checkGetPhoneVcode (_username, _vercode = '') {
+		getPhoneVcode (_username, _vercode = '') {
 			let _that = this;
 			axios({
                 method: 'get',
@@ -87,13 +88,13 @@ export default {
                 console.log(err);
             });
 		},
-		getPhoneVcode () {
+		checkGetPhoneVcode () {
 			if (this.username === '') {
 				this.promit = '请输入手机号';
 			} else if (!this.phoneReg.test(this.username)) {
 				this.promit = '手机号格式不正确';
 			} else if (!this.isNeedVercode) {
-				this.checkGetPhoneVcode(this.username);
+				this.getPhoneVcode(this.username);
 			} else if (this.isNeedVercode) {
 				if (this.vercode === '') {
 					this.promit = '请输入图片验证码';
@@ -101,11 +102,11 @@ export default {
 					this.promit = '验证码不正确';
 				} else {
 					console.log('here');
-					this.checkGetPhoneVcode(this.username, this.vercode);
+					this.getPhoneVcode(this.username, this.vercode);
 				}
 			}
 		},
-		doLogin () {
+		checkDoLogin () {
 			if (this.username === '') {
 				this.promit = '请输入手机号';
 			} else if (!this.phoneReg.test(this.username)) {
@@ -115,8 +116,28 @@ export default {
 			} else if (this.phoneVcode.length < 4) {
 				this.promit = '短信验证码不正确';
 			} else {
-				console.log('回传');
+				this.doLogin(this.username, this.phoneVcode);
 			}
+		},
+		doLogin (_username, _phoneVcode) {
+			// axios({
+   //              method: 'get',
+   //              url: 'http://localhost:3000/login/doLogin',
+   //              params: {
+   //              	user: _username,
+   //              	phoneVcode: _phoneVcode
+   //              }
+   //          })
+   //          .then((res) => {
+   //              console.log(res.data.data);
+                
+   //          })
+   //          .catch((err) => {
+   //              console.log(err);
+   //          });
+   			setCookie('user', _username, 1000 * 60 * 60 * 24 * 3);
+   			let _redirectName = this.$route.query.redirect;
+   			this.$router.push({ name: `${_redirectName}` });
 		}
 
  	}

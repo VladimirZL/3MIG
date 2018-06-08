@@ -20,7 +20,10 @@ export default {
 	},
 	components: {
 		'Head': Head
-	}
+	},
+	activated () {
+        this.$store.commit('HIDDEN_FOOTMENU');
+    }
 }
 </script>
 

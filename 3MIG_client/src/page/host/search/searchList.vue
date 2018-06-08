@@ -1,6 +1,8 @@
 <template>
-    <div id="search-list">
-    	<Head :title = 'propTitle' search = 'true'></Head>
+    <div id = 'search-list'>
+    	<header>
+    		<Head :title = 'propTitle' search = 'true'></Head>
+    	</header>
     	<Loading :loading-show = 'isLoading'></Loading>
     	<main>
     		<div class = 'app-list'>
@@ -31,7 +33,7 @@ import Head from '../../../components/header/Head.vue'
 import loading from '../../../components/common/loading.vue'
 
 export default {
-  	name: 'search-list',
+  	name: 'searchList',
   	data () {
   		return {
   			isLoading: false,
@@ -74,6 +76,15 @@ export default {
 <style lang="scss" scoped>
 	#search-list {
 		width: 100%;
+		header {
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 9999;
+            height: 0.9rem;
+            position: fixed;
+        }
 		main {
 			width: 100%;
 			padding-top: 0.9rem;

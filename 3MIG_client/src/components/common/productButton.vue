@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  	name: 'cart',
+  	name: 'product-btn',
   	data () {
   		return {
   		}	

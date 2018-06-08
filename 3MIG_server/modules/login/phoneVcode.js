@@ -40,6 +40,6 @@ async function getPhoneVcode (phone_number, vercode = '') {
 
 }
 
-getPhoneVcode('18392192899', '2ARXX');
+// getPhoneVcode('18392192899', '2ARXX');
 
 module.exports = getPhoneVcode;

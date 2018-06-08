@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { getCookie } from '../config/cookie.js'
+
 
 /***  host  ***/
 
@@ -7,8 +9,15 @@ import host from '@/page/host/host.vue'
 import home from '@/page/host/home/home.vue'
 import category from '@/page/host/category/category.vue'
 import cart from '@/page/host/cart/cart.vue'
+//product页面
+import Product from '@/page/host/product/Product.vue'
+import ProductView from '@/page/host/product/ProductView.vue'
+import ProductList from '@/page/host/product/ProductList.vue'
+//channel页面
+import Channel from '@/page/host/channel/Channel.vue'
 //user页面
 import user from '@/page/host/user/user.vue'
+import SetFocus from '@/page/host/set/SetFocus.vue'
 //search页面
 import search from '@/page/host/search/search.vue'
 import searchShow from '@/page/host/search/searchShow.vue'
@@ -19,10 +28,8 @@ import Vip from '@/page/host/vip/Vip.vue'
 import Service from '@/page/host/service/Service.vue'
 //小米之家页面
 import Mihome from '@/page/host/mihome/Mihome.vue'
-
-//product页面
-import productView from '@/page/product/productView/productView.vue'
-import productList from '@/page/product/productList/productList.vue'
+//F码购买页面
+import Fcode from '@/page/host/fcode/Fcode.vue'
 
 
 /***  login  ***/
@@ -55,7 +62,43 @@ const router = new Router({
                     path: '/host/home',
                     name: 'host-home',
                     component: home
-                },  
+                },
+                {
+                    path: '/host/product',
+                    name: 'host-product',
+                    component: Product,
+                    children: [
+                        {
+                            path: '/host/product/view/:id',
+                            name: 'host-product-view',
+                            component: ProductView
+                        },
+                        {
+                            path: '/host/product/list/:id',
+                            name: 'host-product-list',
+                            component: ProductList
+                        },
+                        {
+                            path: '/host/product/comment',
+                            name: 'host-product-comment',
+                            children: [
+                                {
+                                    path: '/host/product/comment/list/:id',
+                                    name: 'host-product-comment-list',
+                                },
+                                {
+                                    path: '/host/product/comment/view/:id',
+                                    name: 'host-product-comment-view',
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    path: '/host/channel/:id',
+                    name: 'host-channel',
+                    component: Channel
+                }, 
                 {
                     path: '/host/category',
                     name: 'host-category',
@@ -74,11 +117,10 @@ const router = new Router({
                         {
                             path: '/host/user/coupon',
                             name: 'host-user-coupon',
+                            meta: {
+                                needLogin: true,
+                            }
                         },
-                        {
-                            path: '/host/user/set',
-                            name: 'host-user-set',
-                        }
                     ]
                 },
                 {
@@ -119,26 +161,39 @@ const router = new Router({
                 },
                 {
                     path: '/host/fcode',
-                    name: 'host-fcode'
+                    name: 'host-fcode',
+                    component: Fcode,
+                    meta: {
+                        needLogin: true,
+                    }
+
+                },
+                {
+                    path: '/host/set',
+                    name: 'host-set',
+                    component: SetFocus,
+                    meta: {
+                        needLogin: true,
+                    }
                 },
             ]   
         },
-        {
-            path: '/product',
-            component: productView,
-            children: [
-                {
-                    name: 'product-view',
-                    path: '/product/view/:id',
-                    component: productView
-                },
-                {
-                    name: 'product-list',
-                    path: '/product/list/:id',
-                    component: productList
-                }
-            ]
-        },
+        // {
+        //     path: '/product',
+        //     component: productView,
+        //     children: [
+        //         {
+        //             name: 'product-view',
+        //             path: '/product/view/:id',
+        //             component: productView
+        //         },
+        //         {
+        //             name: 'product-list',
+        //             path: '/product/list/:id',
+        //             component: productList
+        //         }
+        //     ]
+        // },
         {
             name: 'login',
             path: '/login',
@@ -148,17 +203,22 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    switch(to.name) {
-        case 'host-user-coupon': console.log('需要登陆');
-        break;
-        case 'host-fcode': console.log('需要登陆');
-        break;
-        case 'host-user-set': console.log('需要登陆');
-        break;
 
+    if (to.meta.needLogin) {
+        if (getCookie('_name') !== '') {
+            next();
+        } else {
+            next({
+                name: 'login',
+                query: {
+                    redirect: 'host-user'
+                }
+            })
+        }
+    } else {
+        next();
     }
-    console.log(to);
-    next();
+
 })
 
 export default router

@@ -3,25 +3,13 @@
     	<header>
     		<Head :title = 'propTitle' search = 'true'></Head>
     	</header>
-    	<Loading :loading-show = 'isLoading'></Loading>
+    	<loading :loading-show = 'isLoading'></loading>
     	<main>
     		<div class = 'app-list'>
-    			<div class = 'one-list' v-for = '(item, index) in listData'>
-    				<router-link tag = 'a' :to = "{ 'name': 'product-view', params: {id: `${item.action.path}`}}">
-    					<div class = 'list-img'>
-    						<img :src = 'item.image_url'>
-    					</div>
-    					<div class = 'list-info'>
-    						<div class = 'info-name'>
-    							<span> {{ item.product_name }} </span>
-    						</div>
-    						<div class = 'info-des' v-html = 'item.product_desc'></div>
-    						<div class = 'info-price'>
-    							<span> {{ item.price_min }} </span>
-    						</div>
-    					</div>
-    				</router-link>
-    			</div>
+    			<good-list 
+    				v-for = '(item, index) in listData' 
+    				:good-item = 'item'>
+    			</good-list>
     		</div>
     	</main>
     </div>
@@ -31,6 +19,7 @@
 import axios from 'axios'
 import Head from '../../../components/header/Head.vue'
 import loading from '../../../components/common/loading.vue'
+import goodList from '../../../components/common/goodList.vue'
 
 export default {
   	name: 'searchList',
@@ -43,7 +32,8 @@ export default {
 	},
 	components: {
 		'Head': Head,
-		'Loading': loading
+		'loading': loading,
+		'good-list': goodList
 	},
 	methods: {
 		//请求数据列表信息
@@ -90,44 +80,6 @@ export default {
 			padding-top: 0.9rem;
 			.app-list {
 				width: 100%;
-				.one-list {
-					padding: 0 0 0.06 0rem;
-					a {
-						display: inline-flex;
-						align-items: center;
-						border-bottom: 1px solid #E4E4E4;
-						.list-img {
-							width: 3rem;
-							height: 3rem;
-							img {
-								width: 3rem;
-							}
-						}
-						.list-info {
-							padding: 0 0.32rem 0.08rem;
-							.info-name {
-								font-size: 0.28rem;
-								margin-bottom: 0.16rem;
-							}
-							.info-des {
-								height: 0.6rem;
-								overflow: hidden;
-								font-size: 0.23rem;
-								margin-bottom: 0.16rem;
-								line-height: 0.3rem;
-							}
-							.info-price {
-								color: #0AAD64;
-								font-size: 0.32rem;
-								padding-left: 0.3rem;
-								background: url('../../../assets/icon/rmb1.svg');
-								background-position: left;
-								background-repeat: no-repeat;
-								background-size: 0.3rem;
-							}
-						}
-					}
-				}
 			}
 		}
 	}

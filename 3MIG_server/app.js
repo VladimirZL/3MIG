@@ -11,6 +11,9 @@ const router = new Router();
 //home页面数据值
 const getHomemenuContent = require('./modules/host/home/homeMenuContent.js');
 const getHomepageData = require('./modules/host/home/homePageData.js');
+//product页面
+const getProductViewData = require('./modules/host/product/productView.js');
+const getProductRecommData = require('./modules/host/product/productRecomm.js');
 //category页面数据值
 const getCategorypageData = require('./modules/host/category/categoryPageData.js');
 //cart页面数据值
@@ -22,11 +25,6 @@ const getSearchlistData = require('./modules/host/search/searchListData.js');
 const getSearchkeyData = require('./modules/host/search/searchKeyData.js');
 //channel页面数据
 const getChannelpageData = require('./modules/host/channel/channelPageData.js');
-
-
-/***  product页面  ***/
-const getProductData = require('./modules/product/product.js');
-const getProductRecommData = require('./modules/product/productRecomm.js');
 
 
 /***  Login页面  ***/ 
@@ -67,10 +65,23 @@ host
 		let result = await getHomepageData(option_id, option_type);
 		back(ctx, result);
 	})
+
 	.get('/categoryPage/data', async (ctx) => {
 		let result = await getCategorypageData();
 		back(ctx, result);
 	})
+
+	.get('/product/view/data', async (ctx) => {
+		let _productId = ctx.query.productId;
+		let result = await getProductViewData(_productId);
+		back(ctx, result);
+	})
+	.get('/product/view/recommend', async (ctx) => {
+		let _productId = ctx.query.productId;
+		let result = await getProductRecommData(_productId);
+		back(ctx, result);
+	})
+
 	.get('/cartPage/data',  async (ctx) => {
 		let result = await getCartpageData();
 		back(ctx, result);
@@ -79,6 +90,7 @@ host
 		let result = await getCartshoppiongData();
 		back(ctx, result);
 	})
+
 	.get('/searchPage/data',  async (ctx) => {
 		let result = await getSearchpageData();
 		back(ctx, result);
@@ -93,23 +105,10 @@ host
 		let result = await getSearchkeyData(input_key);
 		back(ctx, result);
 	})
+
 	.get('/channelPage/data', async (ctx) => {
 		let _productId = ctx.query.productId;
 		let result = await getChannelpageData(_productId);
-		back(ctx, result);
-	})
-
-
-let product = new Router();
-product
-	.get('/data', async (ctx) => {
-		let _productId = ctx.query.productId;
-		let result = await getProductData(_productId);
-		back(ctx, result);
-	})
-	.get('/recommend', async (ctx) => {
-		let _productId = ctx.query.productId;
-		let result = await getProductRecommData(_productId);
 		back(ctx, result);
 	})
 
@@ -132,7 +131,6 @@ login
 
 
 router.use('/host', host.routes(), host.allowedMethods());
-router.use('/product', product.routes(), product.allowedMethods());
 router.use('/login', login.routes(), login.allowedMethods());
 
 	

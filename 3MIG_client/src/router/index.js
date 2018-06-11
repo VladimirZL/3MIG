@@ -178,22 +178,6 @@ const router = new Router({
                 },
             ]   
         },
-        // {
-        //     path: '/product',
-        //     component: productView,
-        //     children: [
-        //         {
-        //             name: 'product-view',
-        //             path: '/product/view/:id',
-        //             component: productView
-        //         },
-        //         {
-        //             name: 'product-list',
-        //             path: '/product/list/:id',
-        //             component: productList
-        //         }
-        //     ]
-        // },
         {
             name: 'login',
             path: '/login',

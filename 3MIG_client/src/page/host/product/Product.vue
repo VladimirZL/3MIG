@@ -1,3 +1,5 @@
+<!-- 产品页面 -->
+
 <template>
     <div id="product">
 		<transition name = 'product-animate' >
@@ -10,17 +12,15 @@
 
 export default {
   	name: 'product',
-  	activated () {
-        this.$store.commit('HIDDEN_FOOTMENU');
-    }
 }
 </script>
 
 <style lang="scss" scoped>
 	#product {
   		.product-router {
-		     transition: all 0.4s;
-		     position: absolute;
+  			width: 100%;
+		    transition: all 0.4s;
+		    position: absolute;
 		}
 		.product-animate-leave-active {
 		    transform: translate(100%, 0);

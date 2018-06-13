@@ -1,4 +1,4 @@
-<!-- 商品列表组件 -->
+<!-- 商品列表组件一 -->
 
 <template>
     <div class = 'good-list'>

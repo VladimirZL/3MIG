@@ -30,7 +30,10 @@
                     :good-info = 'nowChoice'
                     :good-activies = 'nowActivies'>
                 </BuyInfo>
-                <CommentView :comment-view = 'viewContent.commentView'></CommentView>
+                <product-comment-view 
+                    :comment-view = 'viewContent.commentView'
+                    :now-choice = 'nowChoice'>
+                </product-comment-view>
                 <DescTabsView :desc-tabs-view = 'viewContent.descTabsView'></DescTabsView>
                 <RecommendView :recommend-content = 'recommendContent'></RecommendView>
             </main>
@@ -59,7 +62,7 @@ import axios from 'axios'
 import GalleryView from './product-component/GalleryView.vue'
 import TitleView from './product-component/TitleView.vue'
 import BuyInfo from './product-component/BuyInfo.vue'
-import CommentView from './product-component/CommentView.vue'
+import productCommentView from './product-component/productCommentView.vue'
 import DescTabsView from './product-component/DescTabsView.vue'
 import RecommendView from './product-component/RecommendView.vue'
 import ProductParameter from './product-component/ProductParameter.vue' 
@@ -119,7 +122,7 @@ export default {
         'GalleryView': GalleryView,
         'TitleView': TitleView,
         'BuyInfo': BuyInfo,
-        'CommentView': CommentView,
+        'product-comment-view': productCommentView,
         'DescTabsView': DescTabsView,
         'RecommendView': RecommendView,
         //购买选项

@@ -1,3 +1,5 @@
+<!-- 商品内容组件 -->
+
 <template>
     <div class = 'content-list'>
         <div v-for = '(data, dataIndex) in contentList'>

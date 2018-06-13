@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store/'
+import directive from './directives/directives.js'
 //外部插件
 import axios from 'axios'
 import VueAwesomeSwiper from 'vue-awesome-swiper'

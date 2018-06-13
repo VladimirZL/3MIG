@@ -13,6 +13,10 @@ import cart from '@/page/host/cart/cart.vue'
 import Product from '@/page/host/product/Product.vue'
 import ProductView from '@/page/host/product/ProductView.vue'
 import ProductList from '@/page/host/product/ProductList.vue'
+//comment页面
+import comment from '@/page/host/comment/comment.vue'
+import commentView from '@/page/host/comment/commentView.vue'
+import commentList from '@/page/host/comment/commentList.vue'
 //channel页面
 import Channel from '@/page/host/channel/Channel.vue'
 //user页面
@@ -77,20 +81,23 @@ const router = new Router({
                             path: '/host/product/list/:id',
                             name: 'host-product-list',
                             component: ProductList
+                        }
+                    ]
+                },
+                {
+                    path: '/host/comment',
+                    name: 'host-comment',
+                    component: comment,
+                    children: [
+                        {
+                            path: '/host/comment/list/:id',
+                            name: 'host-comment-list',
+                            component: commentList
                         },
                         {
-                            path: '/host/product/comment',
-                            name: 'host-product-comment',
-                            children: [
-                                {
-                                    path: '/host/product/comment/list/:id',
-                                    name: 'host-product-comment-list',
-                                },
-                                {
-                                    path: '/host/product/comment/view/:id',
-                                    name: 'host-product-comment-view',
-                                }
-                            ]
+                            path: '/host/comment/view/:id',
+                            name: 'host-comment-view',
+                            component: commentView
                         }
                     ]
                 },

@@ -2,8 +2,8 @@
     <div id = 'host'>
     	<div class = 'main'>
 		    <transition name = 'host-animate'> 
-		    	<keep-alive exclude = 'product'>
-		    		<router-view class = 'host-router' mode = 'out-in'></router-view>
+		    	<keep-alive exclude = 'comment,product'>
+		    		<router-view class = 'host-router'></router-view>
 		    	</keep-alive>
 		    </transition>
 		</div>

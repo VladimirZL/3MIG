@@ -7,37 +7,62 @@
  		</header>
  		<Loading :loading-show = 'isLoading'></Loading>
  		<main>
-            
+            <div class = 'app-list'>
+                <good-list-two 
+                    v-for = '(item, index) in listData' 
+                    :good-item = 'item'>
+                </good-list-two>
+            </div>
   			<guess-like></guess-like>
  		</main>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 import Head from '../../../components/header/head.vue'
 import loading from '../../../components/common/loading.vue'
 import guessLike from '../../../components/common/guessLike.vue'
-import goodList from '../../../components/common/goodList.vue'
+import goodListTwo from '../../../components/common/goodListTwo.vue'
 
 export default {
   	name: 'product-list',
   	data () {
   		return {
-  			isLoading: false
+  			isLoading: false,
+            listData: [],
   		}
   	},
   	components: {
   		'Head': Head,
   		'Loading': loading,
   		'guess-like': guessLike,
-        'good-list': goodList
+        'good-list-two': goodListTwo
   	},
-
+    methods: {
+        getProductListData () {
+            axios({
+                method: 'get',
+                url: 'http://localhost:3000/host/product/list/data',
+                params: {
+                    categoryId: this.$route.params.id
+                }
+            })
+            .then((res) => {
+                console.log(res);
+                let _data = res.data.data.data;
+                this.listData = _data.list
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    },
   	created () {
         this.$store.commit('SHOW_FOOTMENU');
     },
     beforeMount () {
-        
+        this.getProductListData();
     }
 }
 </script>
@@ -56,6 +81,9 @@ export default {
         }
         main {
         	padding-top: 0.9rem;
+            .app-list {
+                width: 100%;
+            }
         }
 	}
 </style>

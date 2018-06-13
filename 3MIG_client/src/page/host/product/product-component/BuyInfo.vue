@@ -25,7 +25,7 @@
             <div class = 'option-tittle'>送至</div>
             <div class = 'option-info'>xxxxxxxx</div>
         </div>
-        <div class = 'buy-serve buy-option'>
+        <div class = 'buy-serve buy-option' v-if = 'goodInfo.service_refound_policy_list'>
             <div v-for = '(goodItem, index) in goodInfo.service_refound_policy_list.list'>
                 {{ goodItem.item_name }}
             </div>

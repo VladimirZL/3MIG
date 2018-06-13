@@ -14,6 +14,10 @@ const getHomepageData = require('./modules/host/home/homePageData.js');
 //product页面
 const getProductViewData = require('./modules/host/product/productView.js');
 const getProductRecommData = require('./modules/host/product/productRecomm.js');
+const getProductListData = require('./modules/host/product/productList.js');
+//comment页面数据值
+const getCommentListData = require('./modules/host/comment/commentList.js');
+const getCommentViewData = require('./modules/host/comment/commentView.js');
 //category页面数据值
 const getCategorypageData = require('./modules/host/category/categoryPageData.js');
 //cart页面数据值
@@ -55,6 +59,7 @@ app.use(cors());
 
 let host = new Router();
 host
+	//主页
 	.get('/homePage/menu', async (ctx) => {
 		let result = await getHomemenuContent();
 		back(ctx, result);
@@ -65,12 +70,12 @@ host
 		let result = await getHomepageData(option_id, option_type);
 		back(ctx, result);
 	})
-
+	//分类
 	.get('/categoryPage/data', async (ctx) => {
 		let result = await getCategorypageData();
 		back(ctx, result);
 	})
-
+	//商品
 	.get('/product/view/data', async (ctx) => {
 		let _productId = ctx.query.productId;
 		let result = await getProductViewData(_productId);
@@ -81,7 +86,26 @@ host
 		let result = await getProductRecommData(_productId);
 		back(ctx, result);
 	})
-
+	.get('/product/list/data', async (ctx) => {
+		let _categoryId = ctx.query.categoryId;
+		let result = await getProductListData(_categoryId);
+		back(ctx, result);
+	})
+	//评论
+	.get('/comment/list/data', async (ctx) => {
+		let _goodId = ctx.query.goodId;
+		let _page_index = ctx.query.pageIndex;
+		let _type = ctx.query.type;
+		let _show_img = ctx.query.showImg;
+		let result = await getCommentListData(_goodId, _page_index, _type, _show_img);
+		back(ctx, result);
+	})
+	.get('/comment/view/data', async (ctx) => {
+		let _commentId = ctx.query.commentId;
+		let result = await getCommentViewData(_commentId);
+		back(ctx, result);
+	})
+	//购物车
 	.get('/cartPage/data',  async (ctx) => {
 		let result = await getCartpageData();
 		back(ctx, result);
@@ -90,7 +114,7 @@ host
 		let result = await getCartshoppiongData();
 		back(ctx, result);
 	})
-
+	//搜索
 	.get('/searchPage/data',  async (ctx) => {
 		let result = await getSearchpageData();
 		back(ctx, result);
@@ -105,7 +129,7 @@ host
 		let result = await getSearchkeyData(input_key);
 		back(ctx, result);
 	})
-
+	//特殊商品页面
 	.get('/channelPage/data', async (ctx) => {
 		let _productId = ctx.query.productId;
 		let result = await getChannelpageData(_productId);

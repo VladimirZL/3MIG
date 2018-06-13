@@ -1,3 +1,5 @@
+<!-- 专题产品页面 -->
+
 <template>
     <div id = 'channel'>
     	<header>

@@ -35,20 +35,18 @@ export default {
     } 
 	.loading {
 		top: 50%;
-		// top: 0;
 		left: 50%;
 		z-index: 999;
 		width: 0.4rem;
 		height: 0.4rem;
 		position: fixed;
-		border-radius: 100%;
-		margin-left: -0.2rem;
 		margin-top: -2rem;
 		transition: all 20s;
-		// background-color: #059B5A;
-		background-color: white;
+		border-radius: 100%;
+		margin-left: -0.2rem;
 		border: 2px solid #059B5A;
 		border-top-color: white;
+		background-color: transparent;
 		animation: circle 0.5s linear infinite;
 	}
 	// .loading-animation {

@@ -8,10 +8,10 @@
  		<Loading :loading-show = 'isLoading'></Loading>
  		<main>
             <div class = 'app-list'>
-                <good-list-two 
+                <goods-list-two 
                     v-for = '(item, index) in listData' 
                     :good-item = 'item'>
-                </good-list-two>
+                </goods-list-two>
             </div>
   			<guess-like></guess-like>
  		</main>
@@ -23,7 +23,7 @@ import axios from 'axios'
 import Head from '../../../components/header/head.vue'
 import loading from '../../../components/common/loading.vue'
 import guessLike from '../../../components/common/guessLike.vue'
-import goodListTwo from '../../../components/common/goodListTwo.vue'
+import goodsListTwo from '../../../components/common/goodsListTwo.vue'
 
 export default {
   	name: 'product-list',
@@ -37,7 +37,7 @@ export default {
   		'Head': Head,
   		'Loading': loading,
   		'guess-like': guessLike,
-        'good-list-two': goodListTwo
+        'goods-list-two': goodsListTwo
   	},
     methods: {
         getProductListData () {

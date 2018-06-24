@@ -6,10 +6,10 @@
     	<loading :loading-show = 'isLoading'></loading>
     	<main>
     		<div class = 'app-list'>
-    			<good-list-one 
+    			<goods-list-one 
     				v-for = '(item, index) in listData' 
     				:good-item = 'item'>
-    			</good-list-one>
+    			</goods-list-one>
     		</div>
     	</main>
     </div>
@@ -19,7 +19,7 @@
 import axios from 'axios'
 import Head from '../../../components/header/Head.vue'
 import loading from '../../../components/common/loading.vue'
-import goodListOne from '../../../components/common/goodListOne.vue'
+import goodsListOne from '../../../components/common/goodsListOne.vue'
 
 export default {
   	name: 'searchList',
@@ -33,7 +33,7 @@ export default {
 	components: {
 		'Head': Head,
 		'loading': loading,
-		'good-list-one': goodListOne
+		'goods-list-one': goodsListOne
 	},
 	methods: {
 		//请求数据列表信息

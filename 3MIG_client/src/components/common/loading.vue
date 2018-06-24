@@ -45,7 +45,7 @@ export default {
 		border-radius: 100%;
 		margin-left: -0.2rem;
 		border: 2px solid #059B5A;
-		border-top-color: white;
+		border-top-color: transparent;
 		background-color: transparent;
 		animation: circle 0.5s linear infinite;
 	}

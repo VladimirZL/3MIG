@@ -47,7 +47,7 @@
                         <img src = '../../../assets/icon/cart1.svg'>
                         <span>购物车</span>
                     </router-link>
-                    <div class = 'add-cart'>
+                    <div class = 'add-cart' @click = 'openProductBox'>
                         {{ nowChoice.action_button.button_title }}
                     </div>
                 </div>
@@ -226,6 +226,11 @@ export default {
                     this.nowActivies = item.canJoinActs;
                 }
             }
+        },
+        //打开产品盒子
+        openProductBox () {
+            this.productShowType = 'user_choice';
+            this.productShow = true;
         },
         //更新路由
         updatePath () {

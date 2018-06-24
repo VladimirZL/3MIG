@@ -7,10 +7,10 @@
     			<div class="first-item">
 	    			<img src="../../../assets/img/logo1.png">
 	    		</div>
-	    		<div class="second-item">
+	    		<router-link :to = "{'name': 'host-search-show'}" tag = 'div' class="second-item">
 	    			<img src="../../../assets/icon/search.svg">
 	    			<span>搜索商品名称</span>
-	    		</div>
+	    		</router-link>
 	    		<div class="third-item">
 	    			<router-link tag = 'a' to = '../host/user'>
 	    				<img src="../../../assets/icon/user1.svg">

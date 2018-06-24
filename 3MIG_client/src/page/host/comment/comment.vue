@@ -3,7 +3,9 @@
 <template>
     <div id="comment">
 		<transition name = 'comment-animate' >
-			<router-view class = 'comment-router'></router-view>
+			<keep-alive exclude = 'comment-view'>	
+				<router-view class = 'comment-router'></router-view>
+			</keep-alive>
 		</transition>
     </div>
 </template>

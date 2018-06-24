@@ -1,5 +1,5 @@
 <!-- 评论列表页面 -->
-<!-- @scroll = 'recordPosition' -->
+
 <template>
     <div id="comment-list" v-scroll = 'loadMore' ref = 'commentList'>
 		<header>
@@ -122,22 +122,20 @@ export default {
   		//记录位置
   		recordPosition () {
   			this.$parent.childPosition = this.$refs.commentList.scrollTop;
-  			// console.log(this.$refs.commentList.scrollTop)
   		},
   		//设置位置
   		setPosition () {
-  			console.log(this.$parent.childPosition);
   			this.$refs.commentList.scrollTop = this.$parent.childPosition;
   		}
   	},
   	beforeMount () {
   		this.getCommentListData();
   	},
-  	mounted () {
+  	//只在不清除缓存时记录
+  	activated () {
   		this.setPosition();
   	},
-  	beforeDestroy () {
-  		// console.log('dsdd');
+  	deactivated () {
   		this.recordPosition();
   	}
 }

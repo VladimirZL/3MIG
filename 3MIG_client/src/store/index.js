@@ -4,6 +4,9 @@ import mutations from './mutations'
 import actions from './action'
 import getters from './getters'
 
+import cart from './modules/cart'
+
+
 Vue.use(Vuex)
 
 const state = {
@@ -11,6 +14,9 @@ const state = {
 }
 
 export default new Vuex.Store({
+	modules: {
+		cart
+	},
 	state,
 	getters,
 	actions,

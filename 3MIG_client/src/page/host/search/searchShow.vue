@@ -32,7 +32,10 @@
 	    			</router-link>
 	    		</div>
 	    		<div class = 'key-search-list'>
-		    		<router-link tag = 'a' v-for = '(item, index) in key_listSearchContent' :to = "{'name': 'product-view', params: {id: `${ item.action.extra.commodityId }`}}">
+		    		<router-link 
+		    			tag = 'a' 
+		    			v-for = '(item, index) in key_listSearchContent' 
+		    			:to = "{'name': 'host-product-view', params: {id: `${ item.action.extra.commodityId }`}}">
 		    			{{ item.keyword }}
 		    		</router-link>
 		    	</div>

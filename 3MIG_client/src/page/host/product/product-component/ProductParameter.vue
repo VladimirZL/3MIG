@@ -36,11 +36,11 @@
                 </div>
                 <div class = 'user-choice-num'>
                     <div class = 'num-title'>购买数量</div>
-                    <div class = 'num-counter'>
-                        <div :class = "['num-counter-sign', {'num-counter-sign-canChange': canSub === true}]" @click = "changeNumber('sub')">-</div>
-                        <div>{{ buyNum }}</div>
-                        <div :class = "['num-counter-sign', {'num-counter-sign-canChange': canAdd === true}]" @click = "changeNumber('add')">+</div>
-                    </div>
+                    <num-counter 
+                        :buy-num = 'this.buyNum'
+                        :buy-limit = 'this.goodInfo.buy_limit'
+                        @changeNum = 'changeNum'>
+                    </num-counter>
                 </div>
                 <div class = 'user-choice-service'>
                     <div v-for = '(serviceItem, serviceIndex) in goodInfo.service_bargins' class = 'service-type'>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class = 'user-choice-footer'>
+            <div class = 'user-choice-footer' @click = 'addCart'>
                 {{ goodInfo.action_button.button_title }}
             </div>
         </div>
@@ -77,16 +77,18 @@
 </template>
 
 <script>
+import numCounter from '../../../../components/common/numCounter.vue'
 
 export default {
     name: 'product-parameter',
     data () {
         return {
             buyNum: 1,
-            canAdd: true,
-            canSub: false,
             choiceID: [],
         }
+    },
+    components: {
+        'num-counter': numCounter
     },
     props: ['buyOption', 'productShowType', 'goodInfo', 'goodActivies'],
     methods: {
@@ -114,24 +116,8 @@ export default {
             this.$emit('changeChoose', this.choiceID);
         },
         //改变数量
-        changeNumber (_op) {
-            switch (_op) {
-                case 'add': {
-                    if (this.buyNum < this.goodInfo.buy_limit) {
-                        this.buyNum++;
-                    }
-                }
-                break;
-                case 'sub': {
-                    if (this.buyNum > 1) {
-                        this.buyNum--;
-                    }
-                }
-                break;
-            }
-            this.canAdd = this.buyNum < this.goodInfo.buy_limit ? true : false;
-            this.canSub = this.buyNum > 1 ? true : false;
-            this.$emit('changeNum', this.buyNum);
+        changeNum (_buyNum) {
+            this.$emit('changeNum', _buyNum);
         },
         //选择服务
         chooseService (_serviceIndex, _index) {
@@ -140,6 +126,20 @@ export default {
             } else {
                 this.$set(this.goodInfo.service_bargins[_serviceIndex], 'service_choose', _index);
             }
+        },
+        //加入购物车
+        addCart () {
+            this.$store.dispatch('cart/checkoutAdd', {
+                buy_limit: this.$parent.nowChoice.buy_limit,
+                can_delete: this.$parent.nowChoice.is_sale,
+                goodsId: this.$parent.nowChoice.goods_id,
+                image_url: this.$parent.nowChoice.image_share,
+                num: this.$parent.nowChoice.good_num,
+                price: this.$parent.nowChoice.price,
+                product_name: this.$parent.nowChoice.name,
+                choose_this: true,
+                showType: 1
+            });
         }
     },
 }

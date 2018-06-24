@@ -5,7 +5,7 @@
 		<header>
 			<Head title = '评论详情' search = 'true'></Head>
 		</header>
-		<loading></loading>
+		<loading :loading-show = 'isLoading'></loading>
 		<main>
 			<commentBox :comment-content = 'commentItem'></commentBox>
 		</main>
@@ -46,7 +46,6 @@ export default {
             	this.isLoading = false;
             	let _data = res.data.data.data;
             	this.commentItem = _data
-            	console.log(res.data.data);
             })
             .catch((err) => {
                 console.log(err);

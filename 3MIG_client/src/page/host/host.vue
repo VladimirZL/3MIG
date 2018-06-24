@@ -2,7 +2,7 @@
     <div id = 'host'>
     	<div class = 'main'>
 		    <transition name = 'host-animate'> 
-		    	<keep-alive exclude = 'comment,product'>
+		    	<keep-alive exclude = 'comment,product,cart'>
 		    		<router-view class = 'host-router'></router-view>
 		    	</keep-alive>
 		    </transition>
@@ -29,6 +29,9 @@ export default {
   	},
   	components: {
   		'Foot': Foot
+  	},
+  	computed: {
+  		// ...mapState
   	},
   	methods: {
   		changeFooterShow () {

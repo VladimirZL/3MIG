@@ -24,7 +24,9 @@ export default {
   	name: 'host',
   	data () {
   		return {
-  			footerShow: this.$store.state.showFootMenu
+  			footerShow: this.$store.state.showFootMenu,
+  			//子元素分类页面位置
+  			categoryPagePosition: 0,
   		}
   	},
   	components: {

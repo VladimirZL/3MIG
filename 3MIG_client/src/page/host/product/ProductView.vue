@@ -3,6 +3,10 @@
 <template>
     <div id = 'product-view' ref = 'product'>
         <MyMask v-show = 'productShow'></MyMask>
+        <my-layer
+            :content-type = 'layerType'
+            :is-layer = 'isLayer'>
+        </my-layer>
         <div class = 'product-all'>
             <!-- 用户选择界面 -->
             <transition name = 'product-view-animate'>
@@ -13,7 +17,8 @@
                     :good-info = 'nowChoice'
                     :good-activies = 'nowActivies'
                     @changeChoose = 'matchingChoose' 
-                    @changeNum = 'matchingNum'>
+                    @changeNum = 'matchingNum'
+                    @showLayer = 'showLayer'>
                 </ProductParameter>
             </transition>
             <header>
@@ -24,8 +29,11 @@
                 </div>
             </header>
             <main>
-                <GalleryView :gallery-view = 'viewContent.galleryView'></GalleryView>
-                <TitleView :title-view = 'viewContent.titleView'></TitleView>
+                <GalleryView 
+                    :gallery-view = 'viewContent.galleryView'></GalleryView>
+                <TitleView 
+                    :title-view = 'viewContent.titleView'>
+                </TitleView>
                 <BuyInfo 
                     :good-info = 'nowChoice'
                     :good-activies = 'nowActivies'>
@@ -34,8 +42,12 @@
                     :comment-view = 'viewContent.commentView'
                     :now-choice = 'nowChoice'>
                 </product-comment-view>
-                <DescTabsView :desc-tabs-view = 'viewContent.descTabsView'></DescTabsView>
-                <RecommendView :recommend-content = 'recommendContent'></RecommendView>
+                <DescTabsView 
+                    :desc-tabs-view = 'viewContent.descTabsView'>
+                </DescTabsView>
+                <RecommendView 
+                    :recommend-content = 'recommendContent'>
+                </RecommendView>
             </main>
             <footer>
                 <div class = 'product-footer'>
@@ -68,12 +80,17 @@ import RecommendView from './product-component/RecommendView.vue'
 import ProductParameter from './product-component/ProductParameter.vue' 
 
 import MyMask from '../../../components/common/MyMask.vue'
+import myLayer from '../../../components/common/myLayer.vue'
 
 
 export default {
   	name: 'product-view',
     data () {
         return {
+            //弹窗类型
+            layerType: '',
+            //是否显示弹窗
+            isLayer: false,
             //产品盒子是否显示
             productShow: false,
             //产品盒子显示类型
@@ -128,7 +145,9 @@ export default {
         //购买选项
         'ProductParameter': ProductParameter,
         //遮罩
-        'MyMask': MyMask
+        'MyMask': MyMask,
+        //弹框
+        'my-layer': myLayer,
     },
     methods: {
         back () {
@@ -231,6 +250,15 @@ export default {
         openProductBox () {
             this.productShowType = 'user_choice';
             this.productShow = true;
+        },
+        //显示弹窗
+        showLayer (_type) {
+            this.isLayer = true;
+            this.layerType = _type;
+            let _time = setTimeout(() => {
+                this.isLayer = false;
+                clearTimeout(_time);
+            }, 1000);
         },
         //更新路由
         updatePath () {

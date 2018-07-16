@@ -41,6 +41,8 @@ export default {
                         } else {
                             this.$emit('changeNum', this.buyNumber);
                         }
+                    } else {
+                        this.$emit('noChange', 'noAdd');
                     }
                 }
                 break;
@@ -53,6 +55,8 @@ export default {
                         } else {
                             this.$emit('changeNum', this.buyNumber);
                         }
+                    } else {
+                        this.$emit('noChange', 'noSub');
                     }
                 }
                 break;

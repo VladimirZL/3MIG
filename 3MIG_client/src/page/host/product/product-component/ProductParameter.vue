@@ -129,7 +129,22 @@ export default {
         },
         //加入购物车
         addCart () {
-            this.$store.dispatch('cart/checkoutAdd', {
+            // this.$store.dispatch('cart/checkoutAdd', {
+            //     buy_limit: this.$parent.nowChoice.buy_limit,
+            //     can_delete: this.$parent.nowChoice.is_sale,
+            //     goodsId: this.$parent.nowChoice.goods_id,
+            //     image_url: this.$parent.nowChoice.image_share,
+            //     num: this.$parent.nowChoice.good_num,
+            //     price: this.$parent.nowChoice.price,
+            //     product_name: this.$parent.nowChoice.name,
+            //     choose_this: true,
+            //     showType: 1
+            // });
+
+            //判断增加数量还是添加新商品
+            let _addNum = true;
+            //当前要添加的商品
+            let _goodsInfo = {
                 buy_limit: this.$parent.nowChoice.buy_limit,
                 can_delete: this.$parent.nowChoice.is_sale,
                 goodsId: this.$parent.nowChoice.goods_id,
@@ -139,7 +154,35 @@ export default {
                 product_name: this.$parent.nowChoice.name,
                 choose_this: true,
                 showType: 1
-            });
+            };
+            //vuex中现有的商品
+            let state_goodsInfo = this.$store.state.cart.cartInfo.goodsInfo;
+
+            for (let key in state_goodsInfo) {
+                if (state_goodsInfo[key].goodsId === _goodsInfo.goodsId && state_goodsInfo[key].showType === _goodsInfo.showType) {
+                    if ((state_goodsInfo[key].num + _goodsInfo.num) <= state_goodsInfo[key].buy_limit) {
+                        //增加数目
+                        this.$store.commit('cart/INCREASE_NUM', {
+                            _index: key, 
+                            _num: _goodsInfo.num
+                        });
+                        this.$emit('showLayer', 'success');
+                        this.$parent.productShow = false;
+                    } else {
+                        this.$emit('showLayer', 'noAdd');
+                    }
+                    _addNum = false;
+                    break;
+                } else {
+                    _addNum = true;
+                }
+            }
+            if (_addNum === true) {
+                //添加新商品
+                this.$store.commit('cart/ADD_GOODS', _goodsInfo);
+                this.$emit('showLayer', 'success');
+                this.$parent.productShow = false;
+            }
         }
     },
 }

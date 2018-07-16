@@ -16,6 +16,7 @@ export default {
   	name: 'comment',
   	data () {
   		return {
+  			//子元素位置
   			childPosition: 0
   		}
   	},

@@ -10,7 +10,12 @@
         <main :style = "{height: `${watchHeight}rem`}">
             <div class="side left" ref = 'leftSide'>
                 <ul class="side-menu">
-                    <li v-for = '(option, menuIndex) in categoryData' :class = "{'categoryMenu-onthis': menuIndex === categoryMenuFlag}" @click = 'toThis(menuIndex)' ref = 'optionDom'>{{ option.category_name }}</li>
+                    <li 
+                        v-for = '(option, menuIndex) in categoryData' 
+                        :class = "{'categoryMenu-onthis': menuIndex === categoryMenuFlag}" 
+                        @click = 'toThis(menuIndex)' 
+                        ref = 'optionDom'>{{ option.category_name }}
+                    </li>
                 </ul>
             </div>
             <div class="side right" ref = 'rightSide' @scroll = 'watchScroll'>
@@ -109,6 +114,14 @@ export default {
         //router位置
         routerPath (type, id) {
             changeRouter(this, type, id);
+        },
+        //记录位置
+        recordPosition () {
+            this.$parent.categoryPagePosition = this.$refs.rightSide.scrollTop;
+        },
+        //设置位置
+        setPosition () {
+            this.$refs.rightSide.scrollTop = this.$parent.categoryPagePosition;
         }
     },
     created () {
@@ -117,6 +130,12 @@ export default {
     },
     activated () {
         this.$store.commit('SHOW_FOOTMENU');
+        //设置位置
+        this.setPosition();
+    },
+    deactivated () {
+        //记录位置
+        this.recordPosition();
     }
 }
 </script>

@@ -2,6 +2,10 @@
 
 <template>
     <div id = 'cart'>
+        <my-layer 
+            :content-type = 'layerType'
+            :is-layer = 'isLayer'>
+        </my-layer>
     	<header>
             <Head title = '购物车' search = 'true'></Head>
         </header>
@@ -45,7 +49,8 @@
                                     :buy-num = 'cartItem.num'
                                     :buy-limit = 'cartItem.buy_limit'
                                     :buy-index = 'index'
-                                    @changeNum = 'changeNumber'>
+                                    @changeNum = 'changeNumber'
+                                    @noChange = 'showLayer'>
                                 </num-counter>
                                 <div class = 'info-delete' @click = 'deleteGoods(index)'>
                                     <img src = '../../../assets/icon/delete.png'>
@@ -90,6 +95,7 @@
 
 import Head from '../../../components/header/Head.vue'
 import loading from '../../../components/common/loading.vue'
+import myLayer from '../../../components/common/myLayer.vue'
 import guessLike from '../../../components/common/guessLike.vue'
 import numCounter from '../../../components/common/numCounter.vue'
 
@@ -99,14 +105,21 @@ export default {
   	name: 'cart',
   	data () {
   		return {
-  			isLoading: false,
+            //是否登陆
             isLogin: false,
+            //是否加载
+  			isLoading: false,
+            //是否有商品
             isHaveGoods: false,
+            //是否显示弹窗
+            isLayer: false,
+            layerType: '',
   		}	
   	},
   	components: {
         'Head': Head,
   		'Loading': loading,
+        'my-layer': myLayer,
         'guess-like': guessLike,
         'num-counter': numCounter
   	},
@@ -144,8 +157,19 @@ export default {
         //删除商品
         deleteGoods (_index) {
             this.$store.commit('cart/DELETE_ITEM', _index);
-            this.$store.commit('SHOW_FOOTMENU');
+            if (this.$store.state.cart.cartInfo.goodsInfo.length === 0) {
+                this.$store.commit('SHOW_FOOTMENU');
+            }
         },
+        //显示弹窗
+        showLayer (_type) {
+            this.isLayer = true;
+            this.layerType = _type;
+            let _time = setTimeout(() => {
+                this.isLayer = false;
+                clearTimeout(_time);
+            }, 2000);
+        }
     },
     created () {
         if (this.$store.state.cart.cartInfo.goodsInfo.length === 0) {
@@ -170,6 +194,8 @@ export default {
             position: fixed;
         }
         main {
+            height: 100%;
+            overflow: scroll;
             padding-top: 0.9rem;
             .no-login {
                 width: 100%;

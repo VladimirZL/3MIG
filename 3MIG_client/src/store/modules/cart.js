@@ -33,29 +33,29 @@ const state = {
 
 const actions = {
 
-	checkoutAdd ({ commit, state }, _goodsInfo) {
-		let _addNum = true;
-		for (let key in state.cartInfo.goodsInfo) {
-			if (state.cartInfo.goodsInfo[key].goodsId === _goodsInfo.goodsId && state.cartInfo.goodsInfo[key].showType === _goodsInfo.showType) {
-				if ((state.cartInfo.goodsInfo[key].num + _goodsInfo.num) <= state.cartInfo.goodsInfo[key].buy_limit) {
-					commit('INCREASE_NUM', {
-						_index: key, 
-						_num: _goodsInfo.num
-					});
-				} else {
-					console.log('不能再加了');
-					console.log(state.cartInfo.goodsInfo[key].num);
-				}
-				_addNum = false;
-				break;
-			} else {
-				_addNum = true;
-			}
-		}
-		if (_addNum === true) {
-			commit('ADD_GOODS', _goodsInfo)
-		}
-	}
+	// checkoutAdd ({ commit, state }, _goodsInfo) {
+	// 	let _addNum = true;
+	// 	for (let key in state.cartInfo.goodsInfo) {
+	// 		if (state.cartInfo.goodsInfo[key].goodsId === _goodsInfo.goodsId && state.cartInfo.goodsInfo[key].showType === _goodsInfo.showType) {
+	// 			if ((state.cartInfo.goodsInfo[key].num + _goodsInfo.num) <= state.cartInfo.goodsInfo[key].buy_limit) {
+	// 				commit('INCREASE_NUM', {
+	// 					_index: key, 
+	// 					_num: _goodsInfo.num
+	// 				});
+	// 			} else {
+	// 				console.log('不能再加了');
+	// 				console.log(state.cartInfo.goodsInfo[key].num);
+	// 			}
+	// 			_addNum = false;
+	// 			break;
+	// 		} else {
+	// 			_addNum = true;
+	// 		}
+	// 	}
+	// 	if (_addNum === true) {
+	// 		commit('ADD_GOODS', _goodsInfo)
+	// 	}
+	// }
 
 };
 

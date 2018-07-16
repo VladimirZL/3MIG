@@ -40,10 +40,14 @@
 npm install
 
 //之后启动后台服务，在3MIG_server中执行命令
-node app.js
+npm run server
 
 //然后开启前端服务，在3MIG_client中执行命令
 npm run dev
 
 //打开浏览器，输入http://localhost:8080，用开发者模式的手机模式查看即可
 ```
+
+#### 联系方式
+微信: z18392192892
+qq: 136494050

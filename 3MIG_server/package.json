@@ -1,0 +1,19 @@
+{
+  "name": "3mig_server",
+  "version": "1.0.0",
+  "description": "A koa project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node app.js"
+  },
+  "dependencies": {
+    "koa": "*",
+    "koa-router": "*",
+    "koa-bodyparser": "*",
+    "koa2-cors": "*",
+    "request": "*"
+  },
+  "author": "vladimir",
+  "license": "ISC"
+}

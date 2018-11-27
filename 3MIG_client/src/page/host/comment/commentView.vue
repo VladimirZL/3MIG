@@ -36,20 +36,20 @@ export default {
   			// console.log('ss');
   			this.isLoading = true;
   			axios({
-                method: 'get',
-                url: 'http://localhost:3000/host/comment/view/data',
-                params: {
-                    commentId: this.$route.params.id,
-                }
-            })
-            .then((res) => {
-            	this.isLoading = false;
-            	let _data = res.data.data.data;
-            	this.commentItem = _data
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+            method: 'get',
+            url: 'http://localhost:3000/host/comment/view/data',
+            params: {
+                commentId: this.$route.params.id,
+            }
+        })
+        .then((res) => {
+        	this.isLoading = false;
+        	let _data = res.data.data.data;
+        	this.commentItem = _data
+        })
+        .catch((err) => {
+            console.log(err);
+        });
   		}
   	},
   	beforeMount () {

@@ -97,8 +97,10 @@ const mutations = {
 	},
 	//删除项目
 	DELETE_ITEM (state, _index) {
-		state.cartInfo.goodsNum -= state.cartInfo.goodsInfo[_index].num;
-		state.cartInfo.orderPrice -= (state.cartInfo.goodsInfo[_index].num * state.cartInfo.goodsInfo[_index].price);
+		if (state.cartInfo.goodsInfo[_index].choose_this === true) {
+			state.cartInfo.goodsNum -= state.cartInfo.goodsInfo[_index].num;
+			state.cartInfo.orderPrice -= (state.cartInfo.goodsInfo[_index].num * state.cartInfo.goodsInfo[_index].price);
+		}
 		state.cartInfo.goodsInfo.splice(_index, 1);
 		console.log(state.cartInfo.goodsInfo);
 	}

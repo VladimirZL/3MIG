@@ -21,7 +21,10 @@
             <div class="side right" ref = 'rightSide' @scroll = 'watchScroll'>
                 <div v-for = '(option, optionIndex) in categoryData' :class = "['side-content', `category${optionIndex}`]" ref = 'dataDom'>
                     <div v-for = '(data, dataIndex) in option.category_list'>
-                        <CellsAutoFill v-if = "data.view_type === 'cells_auto_fill'" :type-body = 'data.body'></CellsAutoFill>
+                        <CellsAutoFill 
+                            v-if = "data.view_type === 'cells_auto_fill'" 
+                            :type-body = 'data.body'>
+                        </CellsAutoFill>
                         <div v-else-if = "data.view_type === 'category_title'" :class = 'data.view_type'>
                             <span>
                                 {{ data.body.category_name }}
